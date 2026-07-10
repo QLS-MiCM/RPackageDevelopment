@@ -1,0 +1,75 @@
+name: PR Checklist & External Issue
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  checklist-and-issue:
+    if: github.event.repository.name != 'Workshop_Template'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Post checklist comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const repo = context.repo;
+
+            const checklist = [
+              "## PR Checklist",
+              "",
+              `**PR:** ${pr.html_url}`,
+              `**Author:** @${pr.user.login}`,
+              "",
+              "Please confirm the following before requesting review:",
+              "",
+              "- [ ] You have read the [workshop contribution guidelines](https://github.com/Workshop_Template/)",
+              "- [ ] You have included a README outlining the workshop and its contents",
+              "- [ ] You have included requirements and setup instructions in the README.md",
+              "- [ ] You have tested the workshop exercises and data sets",
+              "- [ ] You have organized your repo to match the workshop template structure",
+              "- [ ] You have included a pdf copy of your slides to facilitate review",
+              "- [ ] All changes or contributions are clearly explained in the PR description",
+              "",
+              "Reply to this comment or check off the boxes when complete."
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: pr.number,
+              body: checklist
+            });
+
+      - name: Create issue in external repo
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.WORKSHOP_TEMPLATE_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            const sourceRepo = `${context.repo.owner}/${context.repo.repo}`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: "Workshop_Template",
+              title: `Submission for PR #${pr.number} in ${sourceRepo}: ${pr.title}`,
+              body: [
+                "A new pull request has been opened in **" + sourceRepo + "**.",
+                "",
+                "**PR:** " + pr.html_url,
+                "**Author:** @" + pr.user.login,
+                "",
+                "### Description",
+                pr.body || "No description provided.",
+                "",
+                "---",
+                "_This issue was automatically created for tracking purposes._"
+              ].join("\n")
+            });
