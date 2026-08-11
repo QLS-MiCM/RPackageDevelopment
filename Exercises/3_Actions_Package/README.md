@@ -63,7 +63,7 @@ Check the **Actions** tab on GitHub for workflow run logs.
 
 -   **Permissions** — issue/PR workflows need `issues: write` or `pull-requests: write`.
 -   **Path filters** — limit CI to the package folder in monorepos.
--   **r-lib/actions** — standard R setup (`setup-r`, `setup-r-dependencies`, `test-package`).
+-   **r-lib/actions** — standard R setup (`setup-r`, `setup-r-dependencies`) plus `testthat::test_local()` for the test job.
 -   **Separation of concerns** — install verifies the tarball; tests verify behavior.
 
 ## Prior steps
