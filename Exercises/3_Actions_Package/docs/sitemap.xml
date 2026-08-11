@@ -1,0 +1,20 @@
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/articles/bionmf.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/reference/bionmf-package.html</loc></url>
+<url><loc>/reference/explain_variance.html</loc></url>
+<url><loc>/reference/expression_matrix_path.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/initialize_nmf.html</loc></url>
+<url><loc>/reference/load_expression_matrix.html</loc></url>
+<url><loc>/reference/nmf_multiplicative_step.html</loc></url>
+<url><loc>/reference/plot_error_history.html</loc></url>
+<url><loc>/reference/plot_nmf_heatmaps.html</loc></url>
+<url><loc>/reference/reconstruction_error.html</loc></url>
+<url><loc>/reference/run_nmf.html</loc></url>
+</urlset>
+

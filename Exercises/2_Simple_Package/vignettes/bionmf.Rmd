@@ -1,0 +1,128 @@
+---
+title: "Introduction to bionmf"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to bionmf}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+```
+
+# Overview
+
+**bionmf** fits non-negative matrix factorization (NMF) to a
+gene-by-sample expression matrix. The model is
+
+$$
+X \approx W H, \qquad W \ge 0,\ H \ge 0.
+$$
+
+-   Rows of $X$ are genes; columns are samples.
+-   Columns of $W$ are latent **gene programs**.
+-   Rows of $H$ are **sample loadings** on those programs.
+
+The fit uses Lee–Seung multiplicative updates under the Frobenius loss,
+implemented in base R.
+
+```{r setup}
+library(bionmf)
+```
+
+# Load the bundled example
+
+The package ships a simulated matrix (50 genes $\times$ 100 samples,
+with 3 distinct expression patterns) as
+`inst/extdata/expression_matrix.csv`. Use `expression_matrix_path()` so
+the file is found after install, without hard-coded working-directory
+paths.
+
+```{r load}
+path <- expression_matrix_path()
+X <- load_expression_matrix(path)
+dim(X)
+```
+
+`load_expression_matrix()` checks that values are non-missing and
+non-negative, which NMF requires.
+
+# Fit NMF
+
+Choose a factorization rank (number of programs), a maximum number of
+iterations, and a relative-error tolerance. A seed makes the random
+initialization reproducible.
+
+```{r fit}
+fit <- run_nmf(
+  X,
+  rank = 3L,
+  max_iter = 200L,
+  tol = 1e-4,
+  seed = 42L
+)
+
+fit$iterations
+```
+
+The result is a list with factor matrices and the error trajectory:
+
+-   `fit$W` — genes $\times$ factors
+-   `fit$H` — factors $\times$ samples
+-   `fit$error_history` — Frobenius error after each iteration
+-   `fit$iterations` — number of updates performed (may stop early)
+
+```{r dims}
+dim(fit$W)
+dim(fit$H)
+```
+
+# Diagnostics
+
+Reconstruction quality is summarized by the Frobenius residual
+$\|X - WH\|_F$ and by the fraction of variance explained.
+
+```{r diagnostics}
+reconstruction_error(X, fit$W, fit$H)
+explain_variance(X, fit$W, fit$H)
+```
+
+# Plots
+
+The convergence curve should decrease and then flatten when the relative
+change in error falls below `tol`.
+
+```{r error-plot}
+plot_error_history(fit$error_history)
+```
+
+Heatmaps of $W$ and $H$ show which genes load on each program and how
+samples use those programs.
+
+```{r heatmaps, fig.width = 10}
+plot_nmf_heatmaps(fit$W, fit$H)
+```
+
+# Using your own data
+
+Pass any gene-by-sample CSV with gene IDs in the first column:
+
+```{r custom, eval = FALSE}
+## NOTE: comment out the below code and replace with your dataset path
+
+ 
+# X <- load_expression_matrix("path/to/your_expression.csv")
+# fit <- run_nmf(X, rank = 4L, seed = 1L)
+```
+
+See `?run_nmf`, `?load_expression_matrix`, and `?explain_variance` for
+argument details.

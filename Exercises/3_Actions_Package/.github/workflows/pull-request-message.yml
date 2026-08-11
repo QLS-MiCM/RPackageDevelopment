@@ -1,0 +1,46 @@
+name: Pull request message
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  post-pr-message:
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Post checklist comment on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const repo = context.repo;
+
+            const body = [
+              "## Pull request checklist — bionmf",
+              "",
+              `**PR:** ${pr.html_url}`,
+              `**Author:** @${pr.user.login}`,
+              "",
+              "Before requesting review, please confirm:",
+              "",
+              "- [ ] `devtools::test()` or `R CMD check` passes locally",
+              "- [ ] New or changed functions have roxygen2 documentation",
+              "- [ ] `NAMESPACE` and `man/` are updated (`roxygen2::roxygenise()`)",
+              "- [ ] The PR description explains what changed and why",
+              "- [ ] Any user-facing behavior change is noted in README or NEWS",
+              "",
+              "Automated workflows will build, install, and test this package on GitHub's runners.",
+              "",
+              "_This message was posted automatically by GitHub Actions._"
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: pr.number,
+              body: body
+            });
