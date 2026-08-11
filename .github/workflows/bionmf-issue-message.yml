@@ -1,0 +1,53 @@
+name: bionmf — issue message
+
+on:
+  issues:
+    types: [opened]
+
+# GitHub does not support `paths` filters on `issues` events (only push/PR).
+# Restrict comments to issues that mention this exercise so other repo topics
+# do not get a bionmf-specific welcome message.
+jobs:
+  post-issue-message:
+    if: >
+      contains(github.event.issue.title, 'bionmf') ||
+      contains(github.event.issue.body, 'bionmf') ||
+      contains(github.event.issue.title, '3_Actions_Package') ||
+      contains(github.event.issue.body, '3_Actions_Package')
+    runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+
+    steps:
+      - name: Post welcome message on new issues
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const issue = context.payload.issue;
+            const repo = context.repo;
+
+            const body = [
+              "## Thanks for opening an issue",
+              "",
+              `**Issue:** ${issue.html_url}`,
+              `**Author:** @${issue.user.login}`,
+              "",
+              "When reporting a bug or requesting a feature for **bionmf**, please include:",
+              "",
+              "- [ ] A minimal reproducible example (data + code)",
+              "- [ ] Your R version (`sessionInfo()`)",
+              "- [ ] The `bionmf` version or commit you are using",
+              "- [ ] Expected vs actual behavior",
+              "",
+              "Package source: `Exercises/3_Actions_Package/`",
+              "",
+              "_This message was posted automatically by GitHub Actions._"
+            ].join("\n");
+
+            await github.rest.issues.createComment({
+              owner: repo.owner,
+              repo: repo.repo,
+              issue_number: issue.number,
+              body: body
+            });
