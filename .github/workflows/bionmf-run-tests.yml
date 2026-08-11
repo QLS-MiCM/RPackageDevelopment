@@ -31,12 +31,9 @@ jobs:
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::testthat, any::rcmdcheck
-          needs: check
+          extra-packages: any::testthat
           working-directory: Exercises/3_Actions_Package
 
       - name: Run testthat tests
-        uses: r-lib/actions/test-package@v2
-        with:
-          error-on: warning
-          working-directory: Exercises/3_Actions_Package
+        run: testthat::test_local()
+        shell: Rscript {0}
