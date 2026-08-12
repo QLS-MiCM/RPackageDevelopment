@@ -17,8 +17,8 @@ This workshop focuses on transforming statistical analysis/method scripts into r
 
 ## Sofware
 
-- [RStudio](link to installation instructions)
-- [Git](link to installation instructions)
+- RStudio
+- Git and GitHub
 
 ## Outline
 
