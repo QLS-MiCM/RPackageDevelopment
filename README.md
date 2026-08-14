@@ -19,7 +19,7 @@ Follow the instructions in the [SetupGuide.pdf](SetupGuide.pdf) file to prepare 
 - How to develop a working R package with co-located tests
 - How to use GitHub Actions to automate testing and package maintenance workflows
 
-## Sofware
+## Software
 
 - RStudio
 - Git and GitHub
@@ -30,9 +30,9 @@ Follow the instructions in the [SetupGuide.pdf](SetupGuide.pdf) file to prepare 
 
 - The Script-to-Package Mindset Shift (5 min): Discuss common issues with unstructured scripts and introduce the idea of creating packages to reduce technical debt. 
 - Package Structure (20 min): Hands-on setup to convert an analysis script into a proper package.
-- Building Your Safety Net (25 min): Participants will use testthat to implement their own test code. 
+- Building Your Safety Net (25 min): Participants will use ```testthat``` to implement their own test code. 
 - Code coverage (5 min): Exploring tools to ensure your code is sufficiently covered by tests. 
-- Documenting code (10 min): Introduction to roxygen2 for preparing documentation vignettes.
+- Documenting code (10 min): Introduction to ```roxygen2``` for preparing documentation vignettes.
 
 ### Part 2: GitHub Actions - Automating your package maintenance (50 minutes)
 
