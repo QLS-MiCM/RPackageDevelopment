@@ -1,4 +1,4 @@
-# `bionmf`  **Example Website**
+# `bionmf`  **Example GitHub Actions-Enabled package**
 
 Workshop exercise **3_Actions_Package**: the **`bionmf`** package from [`2_Simple_Package`](../2_Simple_Package/), extended with GitHub Actions for collaboration and CI.
 
