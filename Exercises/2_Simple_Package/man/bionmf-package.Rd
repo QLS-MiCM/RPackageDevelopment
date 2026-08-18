@@ -11,5 +11,10 @@ Lee-Seung non-negative matrix factorization for gene-by-sample expression matric
 \author{
 \strong{Maintainer}: Adrien Osakwe \email{adrien.osakwe@mail.mcgill.ca}
 
+Authors:
+\itemize{
+  \item Adrien Osakwe \email{adrien.osakwe@mail.mcgill.ca}
+}
+
 }
 \keyword{internal}

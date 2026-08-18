@@ -5,7 +5,7 @@
 #' @param seed Optional random seed for reproducibility.
 #' @return List with components `W` and `H`.
 #' @keywords internal
-initialize_nmf <- function(V, k, seed = NULL) {
+initialize_nmfx <- function(V, k, seed = NULL) {
   if (!is.null(seed)) {
     set.seed(seed)
   }
