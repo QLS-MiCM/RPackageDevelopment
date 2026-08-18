@@ -1,5 +1,7 @@
 # R Package Development for Statisticians
 
+Testing if pull request bot is behaving as expected. 
+
 ## Overview
 
 This workshop focuses on transforming statistical analysis/method scripts into robust, testable, and maintainable packages. Participants will learn how to incorporate version control, automated testing, and collaboration tools using GitHub, with a goal of building packages that are easy to scale and maintain.
