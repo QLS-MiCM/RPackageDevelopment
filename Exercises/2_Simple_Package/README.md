@@ -45,15 +45,6 @@ R CMD build .
 R CMD check bionmf_*.tar.gz --no-manual
 ```
 
-## Run the example analysis
-
-``` r
-devtools::load_all()
-source("examples/nmf_analysis.R", local = TRUE)
-```
-
-Compare with step 1: no `source()` chain, functions are namespaced, help pages exist, and `tests/testthat/` guards behavior.
-
 ## What changed vs scripts?
 
 1.  **Layout** — `DESCRIPTION`, `NAMESPACE`, `R/`, `man/`, `tests/`, `inst/extdata/`.
