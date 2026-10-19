@@ -49,5 +49,6 @@ Follow the instructions in the [SetupGuide.pdf](SetupGuide.pdf) file to prepare 
 
 *Material developed by Adrien Osakwe.*
 
-*Workshop materials were created as part of the McGill Initiative in Computational Medicine*
-*The session was coordinated and organized by the Biostatistics Section of the Statistical Society of Canada*
+*Workshop materials were created as part of the McGill Initiative in Computational Medicine.*
+
+*The session was coordinated and organized by the [Biostatistics Section of the Statistical Society of Canada](https://ssc.ca/en/about/sections-regions/biostatistics) and deployed by [InStats](https://instats.org/seminar/r-package-development-free-seminar-1).*
